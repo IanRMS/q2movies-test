@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { apiMoviePath } from '../utils/constants';
 import { Movie } from '../utils/interfaces';
 import GlobalStyle from './globalStyles';
 import { getMovies } from './services';
-import { Content, Main, MovieCard, MovieOriginalTitle, MoviesContainer, MovieTitle } from './styles';
+import { Content, Main, MoreInfoButton, MovieCard, MovieImage, MovieOriginalTitle, MoviesContainer, MovieTitle } from './styles';
 
 function App() {
 
   const [moviesList, setMoviesList] = useState<Movie[]>([]);
+  const [movieSelected, setMovieSelected] = useState<Movie | null>(null);
 
   const handleMovies = async () => {
     try {
@@ -19,6 +21,12 @@ function App() {
       console.log('acabou')
     }
   }
+
+  const handleSelectedMovie = (movie:Movie) => {
+    setMovieSelected(movie);
+    console.log('Movie', movie);
+  }
+
   useEffect(() => {
     handleMovies()
   },[])
@@ -30,9 +38,13 @@ function App() {
       <Content>
         <MoviesContainer>
           {moviesList.map((movie) => (
-            <MovieCard key={movie.id}>
+            <MovieCard key={movie.id} onClick={() => handleSelectedMovie(movie)}>
+              <MovieImage alt={movie.title} src={`${apiMoviePath}${movie.poster_path}`} />
               <MovieTitle>{movie.title}</MovieTitle>
               <MovieOriginalTitle>{movie.original_title}</MovieOriginalTitle>
+              <MoreInfoButton onClick={() => handleSelectedMovie(movie)}>
+                Saber mais
+              </MoreInfoButton>
             </MovieCard>
           ))}
         </MoviesContainer>
