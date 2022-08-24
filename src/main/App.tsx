@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import Modal from '../components/modal';
-import { apiMoviePath } from '../utils/constants';
-import { Movie } from '../utils/interfaces';
+import { FaChevronCircleRight, FaChevronCircleLeft} from 'react-icons/fa';
+
+import Modal from 'components/modal';
+import { apiMoviePath } from 'utils/constants';
+import { Movie } from 'utils/interfaces';
 import GlobalStyle from './globalStyles';
 import { getMovies } from './services';
-import { Content, Main, MoreInfoButton, MovieCard, MovieImage, MovieOriginalTitle, MoviesContainer, MovieTitle } from './styles';
+import { Bottom, Content, Header, Main, MoreInfoButton, MovieCard, MovieImage, MovieOriginalTitle, MoviesContainer, MovieTitle } from './styles';
+import Logo from 'assets/project-logo.png';
 
 function App() {
 
   const [moviesList, setMoviesList] = useState<Movie[]>([]);
   const [movieSelected, setMovieSelected] = useState<Movie | null>(null);
+  const [index, setIndex] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   const handleMovies = async () => {
+    setIsLoading(true)
     try {
-      const {data} = await getMovies();
+      const {data} = await getMovies(index);
       setMoviesList(data.results)
-      console.log(data);
+      setTotalPages(data.total_pages);
     } catch (err) {
       console.log(err);
     } finally {
-      console.log('acabou')
+      setIsLoading(false);
     }
   }
 
@@ -27,30 +34,57 @@ function App() {
     setMovieSelected(movie);
   }
 
+
   useEffect(() => {
     handleMovies()
-  },[])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[index])
 
   return (
     <>
-    <GlobalStyle/>
-    <Main>
-      <Content>
-        <MoviesContainer>
-          {moviesList.map((movie) => (
-            <MovieCard key={movie.id} onClick={() => handleSelectedMovie(movie)}>
-              <MovieImage alt={movie.title} src={`${apiMoviePath}${movie.poster_path}`} />
-              <MovieTitle>{movie.title}</MovieTitle>
-              <MovieOriginalTitle>{movie.original_title}</MovieOriginalTitle>
-              <MoreInfoButton onClick={() => handleSelectedMovie(movie)}>
-                Saber mais
-              </MoreInfoButton>
-            </MovieCard>
-          ))}
-        </MoviesContainer>
-      </Content>
-    {movieSelected && <Modal movie={movieSelected} close={() => setMovieSelected(null)}/>}
-    </Main>
+      <GlobalStyle/>
+      <Main>
+        <Content>
+          <Header>
+            <img alt="Teste Front-End Ian Ribeiro" src={Logo}/>
+          </Header>
+          <MoviesContainer>
+            {moviesList.map((movie) => (
+              <MovieCard key={movie.id} onClick={() => handleSelectedMovie(movie)}>
+                <MovieImage alt={movie.title} src={`${apiMoviePath}${movie.poster_path}`} />
+                <MovieTitle>{movie.title}</MovieTitle>
+                <MovieOriginalTitle>{movie.original_title}</MovieOriginalTitle>
+                <MoreInfoButton onClick={() => handleSelectedMovie(movie)}>
+                  Saber mais
+                </MoreInfoButton>
+              </MovieCard>
+            ))}
+          </MoviesContainer>
+          <Bottom>
+            <div>Página {index} de {totalPages}</div>
+            <div>
+              <button
+                disabled={index === 1 || isLoading}
+                onClick={() => setIndex(index - 1)}
+              >
+                <FaChevronCircleLeft/>
+              </button>
+              <button
+                disabled={index === totalPages || isLoading}
+                onClick={() => setIndex(index + 1)}
+              >
+                  <FaChevronCircleRight/>
+              </button>
+            </div>
+          </Bottom>
+        </Content>
+      {movieSelected && 
+        <Modal
+          movie={movieSelected}
+          close={() => setMovieSelected(null)}
+        />
+      }
+      </Main>
     </>
   );
 }
