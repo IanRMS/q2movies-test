@@ -18,4 +18,5 @@ export interface Movie {
 
 export interface MovieModalProps {
     movie: Movie;
+    close: () => void;
 }

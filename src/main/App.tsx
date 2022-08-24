@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Modal from '../components/Modal';
+import Modal from '../components/modal';
 import { apiMoviePath } from '../utils/constants';
 import { Movie } from '../utils/interfaces';
 import GlobalStyle from './globalStyles';
@@ -49,7 +49,7 @@ function App() {
           ))}
         </MoviesContainer>
       </Content>
-    {movieSelected && <Modal movie={movieSelected}/>}
+    {movieSelected && <Modal movie={movieSelected} close={() => setMovieSelected(null)}/>}
     </Main>
     </>
   );

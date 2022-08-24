@@ -13,6 +13,7 @@ const colors = {
     positive: '#4CAF50',
     medium: '#FFB300',
     negative: '#F4511E',
+    
 }
 
 export {apikey, apiMoviePath, colors}
