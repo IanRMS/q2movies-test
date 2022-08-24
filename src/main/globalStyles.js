@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { colors } from '../utils/constants';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -13,6 +14,19 @@ body {
   font-family: Poppins, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    background: ${colors.background};
+  }
+ 
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+ 
+  ::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
 }
 
 button {

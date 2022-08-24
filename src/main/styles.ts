@@ -4,7 +4,7 @@ import { colors } from '../utils/constants';
 export const Main = styled.main`
     max-width: 100vw;
     min-height: 100vh;
-    background-color: #1C1C25;
+    background-color: ${colors.background};
     overflow-x: hidden;
 `;
 
