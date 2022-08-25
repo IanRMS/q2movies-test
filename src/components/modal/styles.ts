@@ -31,6 +31,45 @@ export const ModalCard = styled.div`
     }
 `;
 
+export const ErrorCard = styled.div`
+    background: ${colors.negative};
+    padding: 16px 12px;
+    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 35%) 0px 2px 8px 0px;
+    z-index: 1001;
+    width: 98%;
+    max-width: 425px;
+    position: relative;
+    user-select: none;
+    text-align: center;
+
+    svg {
+        font-size: 48px;
+    }
+
+    button {
+        border: none;
+        outline: none;
+        width: 100%;
+        border-radius: 4px;
+        background-color: ${colors.white};
+        color: ${colors.negative};
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        font-size: 18px;
+        transition: 0.2s;
+        margin-top: 12px;
+        padding: 8px;
+        font-weight:bold;
+        cursor: pointer;
+
+        &:hover {
+            filter: brightness(0.8)
+        }
+    }
+`;
+
 export const Title = styled.h2`
     color: ${colors.white};
     font-size: 28px;

@@ -20,3 +20,7 @@ export interface MovieModalProps {
     movie: Movie;
     close: () => void;
 }
+
+export interface ErrorModalProps {
+    close: () => void;
+}

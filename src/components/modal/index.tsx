@@ -1,9 +1,10 @@
 import React from 'react';
 import { MdClose } from 'react-icons/md';
+import { FaSkull } from 'react-icons/fa';
 
 import { apiMoviePath, colors } from '../../utils/constants';
-import { MovieModalProps } from '../../utils/interfaces';
-import { BackDrop, Banner, CloseButton, Description, Divider, Info, ModalCard, OriginalTitle, Row, Title, Value } from './styles';
+import { ErrorModalProps, MovieModalProps } from '../../utils/interfaces';
+import { BackDrop, Banner, CloseButton, Description, Divider, ErrorCard, Info, ModalCard, OriginalTitle, Row, Title, Value } from './styles';
 import NotAvailable from 'assets/default-image-banner.jpg';
 
 const Modal:React.FC<MovieModalProps> = ({movie, close}) => {
@@ -61,4 +62,15 @@ const Modal:React.FC<MovieModalProps> = ({movie, close}) => {
     )
 }
 
-export default Modal;
+const ErrorModal:React.FC<ErrorModalProps> = ({close}) => (
+    <BackDrop>
+        <ErrorCard>
+            <FaSkull/>
+            <h1>Ops... </h1>
+            <h3>Houve um erro ao carregar a listagem. Tente novamente.</h3>
+            <button onClick={close}> TENTAR NOVAMENTE</button>
+        </ErrorCard>
+    </BackDrop>
+)
+
+export {Modal, ErrorModal};

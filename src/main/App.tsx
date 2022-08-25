@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronCircleRight, FaChevronCircleLeft } from "react-icons/fa";
 
-import Modal from "components/modal";
+import {Modal, ErrorModal} from "components/modal";
 import { apiMoviePath } from "utils/constants";
 import { Movie } from "utils/interfaces";
 import GlobalStyle from "./globalStyles";
@@ -28,6 +28,7 @@ function App() {
   const [index, setIndex] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [hasError, setHasError] = useState<boolean>(false)
 
   const handleMovies = async () => {
     setIsLoading(true);
@@ -36,7 +37,7 @@ function App() {
       setMoviesList(data.results);
       setTotalPages(data.total_pages);
     } catch (err) {
-      console.log(err);
+      setHasError(true);
     } finally {
       setIsLoading(false);
     }
@@ -45,6 +46,11 @@ function App() {
   const handleSelectedMovie = (movie: Movie) => {
     setMovieSelected(movie);
   };
+
+  const handleError = () => {
+    setHasError(false);
+    window.location.reload();
+  }
 
   useEffect(() => {
     handleMovies();
@@ -110,6 +116,7 @@ function App() {
         {movieSelected && (
           <Modal movie={movieSelected} close={() => setMovieSelected(null)} />
         )}
+        {hasError && <ErrorModal close={() => handleError()}/> }
       </Main>
     </>
   );
