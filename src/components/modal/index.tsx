@@ -4,6 +4,7 @@ import { MdClose } from 'react-icons/md';
 import { apiMoviePath, colors } from '../../utils/constants';
 import { MovieModalProps } from '../../utils/interfaces';
 import { BackDrop, Banner, CloseButton, Description, Divider, Info, ModalCard, OriginalTitle, Row, Title, Value } from './styles';
+import NotAvailable from 'assets/default-image-banner.jpg';
 
 const Modal:React.FC<MovieModalProps> = ({movie, close}) => {
 
@@ -22,7 +23,12 @@ const Modal:React.FC<MovieModalProps> = ({movie, close}) => {
                 <CloseButton onClick={close}>
                     <MdClose fontSize={24} />
                 </CloseButton>
-                <Banner alt="" src={`${apiMoviePath}${movie.backdrop_path}`}/>
+                <Banner
+                    alt=""
+                    src={
+                        movie.backdrop_path ? `${apiMoviePath}${movie.backdrop_path}` : NotAvailable
+                    }
+                />
                 <Title>{movie.title}</Title>
                 <OriginalTitle>{movie.original_title}</OriginalTitle>
 
