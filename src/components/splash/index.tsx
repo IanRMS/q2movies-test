@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const opacityAnimation = keyframes`
     0% { opacity: 1.0 }
-    50% { opacity: 0.5 }
+    50% { opacity: 0.3 }
     100% {opacity: 1.0}
 `;
 

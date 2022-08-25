@@ -1,5 +1,5 @@
-import Splash from "components/splash";
 import React, { useEffect, useState } from "react";
+import Splash from "components/splash";
 
 import GlobalStyle from "./globalStyles";
 import MovieList from "./movieList";
