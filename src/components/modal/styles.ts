@@ -5,7 +5,7 @@ export const BackDrop = styled.div`
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.85);
     display: flex;
     align-items: center;
     justify-content: center;
