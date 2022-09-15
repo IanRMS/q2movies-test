@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsShowSplash(false)
-    }, 3000);
+    }, 3100);
   },[])
 
   return (
